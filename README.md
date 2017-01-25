@@ -2,14 +2,14 @@
 
 Documento que descreve os requisitos e instruções para execução da aplicação, foi utilizado o automatizador de tarefas gulp para criação e execução da aplicação e testes.
 
-# Tecnologias utilizadas
+### Tecnologias utilizadas
 
 - AngularJS;
 - Angular Material;
 - Gulp;
 - Karma
 
-# Requisitos do sistema
+### Requisitos do sistema
 
 - NodeJs
 - npm
@@ -19,27 +19,27 @@ Documento que descreve os requisitos e instruções para execução da aplicaç�
 - git
 - PhantomJS
 
-# Instruções
+### Instruções
 
 Executar os comandos no console
 
-npm install bower -g
-npm install gulp -g
-npm install jasmine-core -g
-npm install phantomjs2 -g
-npm install && bower install
+`npm install bower -g`  
+`npm install gulp -g`  
+`npm install jasmine-core -g`  
+`npm install phantomjs2 -g`  
+`npm install && bower install`  
 
 Para executar os testes
 
-gulp test
+`gulp test`
 
 Pare executar a aplicação
 
-gulp serve
+`gulp serve`
 
-[Demo](http://ec2-52-67-246-28.sa-east-1.compute.amazonaws.com/#/)
+Teste da aplicação [Demo](http://ec2-52-67-246-28.sa-east-1.compute.amazonaws.com/#/)
 
-# Arquivos
+### Arquivos
 
 Código fonte:
 src/
