@@ -1,0 +1,81 @@
+<md-content layout-padding="" class="hue-3" flex="75">
+  <div layout="column">
+    <div flex layout-gt-xs="row" layout="column" class="options-list">
+      <div flex="10" layout="row" layout-align="start center" style="min-height: 100%">
+        <md-button class="md-primary md-raised md-hue-2 button-add" ng-click="vehicleListController.go('/add')">Novo Veículo</md-button>
+        <md-button class="md-raised button-delete" ng-click="vehicleListController.removeVehicle()">Excluir</md-button>
+      </div>
+      <div flex layout="row" layout-align="end center" ng-if="!vehicleListController.advancedSearch">
+        <div layout="column">
+          <div layout="row" class="input-append">
+            <input type="text" ng-model="vehicleListController.filters.plate" flex name="search" ng-keypress="vehicleListController.textSearchKeypress($event, filter)" placeholder="Pesquisar" class="input-search">
+            <i class="add-on material-icons" ng-click="vehicleListController.search()">search</i>
+          </div>
+          <div class="advanced-search-show-link-container">
+            <a href="javascript: void(0);" ng-click="vehicleListController.showAdvancedSearch()" class="advanced-search-show-link stock-list">Exibir opções de busca avançada</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div ng-if="vehicleListController.advancedSearch" class="advanced-search-container" layout="row" layout-padding="">
+      <div class="well advanced-search-content" layout="column" flex>
+        <div layout="row">
+          <md-input-container class="md-block" flex="20">
+            <label>Placa</label>
+            <input ng-model="vehicleListController.filters.plate">
+          </md-input-container>
+          <md-input-container flex="20" class="md-block">
+            <label>Combustível</label>
+            <md-select ng-model="vehicleListController.filters.fuel">
+              <md-option value="">Todos</md-option>
+              <md-option value="Flex">Flex</md-option>
+              <md-option value="Gasolina">Gasolina</md-option>
+              <md-option value="Alcool">Alcool</md-option>
+            </md-select>
+          </md-input-container>
+        </div>
+        <div layout="row" flex layout-align="start center">
+          <md-button ng-click="vehicleListController.search()" class="md-primary md-raised button-advanced-search">Buscar</md-button>
+          <a flex="50" ng-click="vehicleListController.closeAdvancedSearch()" href="javascript: void(0);" class="advanced-search-hide-link">Ocultar opções de busca avançada</a>
+        </div>
+      </div>
+    </div>
+    <md-table-container>
+      <table md-table md-row-select multiple ng-model="vehicleListController.itensSelected" md-progress="promise">
+        <thead md-head>
+          <tr md-row>
+            <th md-column width="10%"><span>Placa</span></th>
+            <th md-column width="20%"><span>Modelo</span></th>
+            <th md-column width="40%"><span>Marca</span></th>
+            <th md-column width="5%"><span>Foto</span></th>
+            <th md-column width="20%"><span>Combustível</span></th>
+            <th md-column width="20%"><span>Valor</span></th>
+          </tr>
+        </thead>
+        <tbody md-body>
+          <tr md-row md-select="vehicle" class="row-car" md-select-id="vehicle"
+              ng-repeat="vehicle in vehicleListController.vehicles
+              | orderBy: vehicleListController.query.order
+              | limitTo: vehicleListController.query.limit : (vehicleListController.query.page -1) * vehicleListController.query.limit">
+            <td md-cell name="plate" ng-click="vehicleListController.go('/edit/' + vehicle.placa)">{{ vehicle.placa }}</td>
+            <td md-cell name="model" ng-click="vehicleListController.go('/edit/' + vehicle.placa)">{{ vehicle.modelo }}</td>
+            <td md-cell name="brand" ng-click="vehicleListController.go('/edit/' + vehicle.placa)">{{ vehicle.marca }}</td>
+            <td md-cell name="image">
+              <a href="" ng-click="vehicleListController.showImage( $event, vehicle.imagem )"  ng-if="vehicle.imagem != null && vehicle.imagem != ''">Imagem</a>
+              <span ng-if="vehicle.imagem == null || vehicle.imagem == ''">Sem foto</span>
+            </td>
+            <td md-cell name="fuel" ng-click="vehicleListController.go('/edit/' + vehicle.placa)">{{ vehicle.combustivel }}</td>
+            <td md-cell name="value" ng-click="vehicleListController.go('/edit/' + vehicle.placa)">{{ vehicle.valor | currency : '' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </md-table-container>
+    <div layout="row" class="pagination" flex layout-align="center center">
+      <ul>
+        <li ng-click="vehicleListController.goToPage( vehicleListController.query.page - 1 )"><span>«</span></li>
+        <li ng-click="vehicleListController.goToPage( page )" ng-class="{'selected': vehicleListController.query.page == page}" ng-repeat="page in vehicleListController.range(vehicleListController.query.totalPages)"><span>{{page}}</span></li>
+        <li ng-click="vehicleListController.goToPage( vehicleListController.query.page + 1 )"><span>»</span></li>
+      </ul>
+    </div>
+  </div>
+</md-content>

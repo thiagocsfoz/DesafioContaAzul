@@ -1,0 +1,92 @@
+<div flex="60" layout="column">
+  <ul class="breadcrumb ng-scope" id="breadcrumb">
+    <li class="ng-scope">
+      <a  class="ng-binding" href="#/"> Veículos </a>
+    </li>
+    <span class="divider ng-scope">›</span>
+    <li ng-repeat-end="" class="ng-scope">
+       Novo
+    </li>
+  </ul>
+  <md-content layout-padding="" class="content-form">
+    <div flex layout="row">
+      <span class="title-form"> Veículo</span>
+    </div>
+    <div layout="row" class="row" flex="" layout-align="center center">
+      <div flex="100" class="row-divider dotted"></div>
+    </div>
+
+    <form name="vehicleFormController.form" novalidate>
+      <div layout="row" flex>
+        <md-input-container flex="50">
+          <label>Placa</label>
+          <input ng-model="vehicleFormController.vehicle.placa" name="plate" required>
+        </md-input-container>
+        <md-input-container flex="50" class="md-block">
+          <label>Combustível</label>
+          <md-select ng-model="vehicleFormController.vehicle.combustivel">
+            <md-option value="Flex">Flex</md-option>
+            <md-option value="Gasolina">Gasolina</md-option>
+            <md-option value="Alcool">Alcool</md-option>
+          </md-select>
+        </md-input-container>
+      </div>
+      <div layout="row" flex>
+        <md-autocomplete
+          md-selected-item="vehicleFormController.selectedBrand"
+          md-search-text="vehicleFormController.searchBrandText"
+          md-search-text-change="vehicleFormController.searchBrandTextChange(vehicleFormController.searchBrandText)"
+          md-selected-item-change="vehicleFormController.selectedBrandChange(item)"
+          md-items="item in vehicleFormController.brands"
+          md-item-text="item.nome"
+          md-min-length="0"
+          placeholder="Marca"
+          md-floating-label="Marca"
+          flex="50"
+          required
+          md-input-name="brand">
+          <md-item-template>
+            <span md-highlight-text="vehicleFormController.searchText" md-highlight-flags="^i">{{item.nome}}</span>
+          </md-item-template>
+        </md-autocomplete>
+        <md-autocomplete
+          ng-disabled="vehicleFormController.searchBrandText == ''"
+          md-selected-item="vehicleFormController.selectedModel"
+          md-search-text-change="vehicleFormController.searchModelTextChange(vehicleFormController.searchModelText)"
+          md-search-text="vehicleFormController.searchModelText"
+          md-selected-item-change="vehicleFormController.selectedModelChange(item)"
+          md-items="item in vehicleFormController.models"
+          md-item-text="item.nome"
+          md-min-length="0"
+          placeholder="Modelo"
+          flex="50"
+          md-floating-label="Modelo"
+          required
+          md-blur="vehicleFormController.selectModel()">
+          <md-item-template>
+            <span md-highlight-text="vehicleFormController.searchText" md-highlight-flags="^i">{{item.nome}}</span>
+          </md-item-template>
+        </md-autocomplete>{{ vehicleFormController.vehicle.model }}
+      </div>
+      <div layout="row">
+        <md-input-container flex="70">
+          <label>Imagem (url)</label>
+          <input ng-model="vehicleFormController.vehicle.imagem" name="image">
+        </md-input-container>
+        <md-input-container flex="30">
+          <label>Valor</label>
+          <input ng-currency ng-model="vehicleFormController.vehicle.valor" name="value">
+        </md-input-container>
+      </div>
+    </form>
+  </md-content>
+  <div layout="row" flex="100" class="actions-form">
+    <div flex="50" layout="row">
+      <md-button class="md-raised button-cancel" ng-click="vehicleFormController.go('/')">Cancelar</md-button>
+    </div>
+    <div flex="50" layout="row" layout-align="end center">
+      <md-button ng-if="!vehicleFormController.editAction" class="md-primary md-raised md-hue-2 button-save" ng-click="vehicleFormController.insertVehicle()">Salvar</md-button>
+      <md-button ng-if="vehicleFormController.editAction" class="md-primary md-raised md-hue-2 button-save" ng-click="vehicleFormController.updateVehicle()">Salvar</md-button>
+    </div>
+  </div>
+</div>
